@@ -409,6 +409,26 @@
       border-radius: 14px; padding: 22px 22px 24px;
       display: flex; flex-direction: column;
       position: relative; overflow: hidden;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .pcard:hover {
+      transform: translateY(-2px);
+      border-color: var(--green);
+      box-shadow: 0 8px 24px rgba(46,196,160,0.12);
+    }
+    .pcard .open-hint {
+      position: absolute; top: 14px; right: 14px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--white); border: 1px solid var(--gray-200);
+      color: var(--gray-400);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; line-height: 1;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    .pcard:hover .open-hint {
+      background: var(--green); color: var(--navy);
+      border-color: var(--green);
     }
     .pcard::before {
       content: '';
@@ -571,6 +591,93 @@
       font-size: 14px; color: var(--navy); line-height: 1.55;
     }
     .skills-strip .kt strong { font-weight: 800; }
+
+    /* ====== MODAL (pillar detail) ====== */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(26,39,68,0.55);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+      z-index: 200;
+    }
+    .modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+    .modal {
+      background: var(--white);
+      border-radius: 20px;
+      max-width: 720px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(26,39,68,0.35);
+      padding: 36px 44px 36px;
+      position: relative;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 240ms ease;
+    }
+    .modal-backdrop.is-open .modal { transform: translateY(0) scale(1); }
+    .modal-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 20px; line-height: 1;
+      transition: background 160ms ease, color 160ms ease;
+    }
+    .modal-close:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .modal-layer {
+      display: inline-block;
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-dark);
+      background: var(--green-light);
+      padding: 5px 12px; border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .modal-title {
+      font-size: 30px; font-weight: 800;
+      letter-spacing: -0.025em; color: var(--navy);
+      line-height: 1.15; margin-bottom: 10px;
+    }
+    .modal-desc {
+      font-size: 15px; color: var(--gray-700); line-height: 1.55;
+      margin-bottom: 22px;
+    }
+    .modal-section-label {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gray-400); margin-bottom: 12px;
+      padding-top: 18px; border-top: 1px solid var(--gray-200);
+    }
+    .modal-systems { list-style: none; }
+    .modal-systems li {
+      display: grid; grid-template-columns: 52px 1fr;
+      gap: 16px; align-items: start;
+      padding: 12px 0;
+      border-top: 1px solid var(--gray-200);
+    }
+    .modal-systems li:first-child { border-top: none; }
+    .modal-systems li code {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px; font-weight: 800; color: var(--green-dark);
+      background: var(--green-light);
+      padding: 3px 8px; border-radius: 6px;
+      text-align: center;
+      letter-spacing: 0.02em;
+      align-self: start;
+    }
+    .modal-systems li span {
+      font-size: 14.5px; color: var(--gray-700); line-height: 1.5;
+    }
+    .modal-systems li span b { color: var(--navy); font-weight: 800; }
+    .modal-foot {
+      margin-top: 22px; padding-top: 16px;
+      border-top: 1px solid var(--gray-200);
+      font-size: 12px; color: var(--gray-400);
+      letter-spacing: 0.02em;
+    }
+    .modal-foot strong { color: var(--navy); font-weight: 700; }
 
     .hint {
       position: fixed; bottom: 24px; right: 24px;
@@ -755,44 +862,52 @@
     <p class="lede">No son fases con orden fijo. Son bloques independientes. Atacamos el que más mueva el negocio en cada momento.</p>
 
     <div class="pillars-body">
-      <div class="pcard">
+      <div class="pcard" data-pillar="strategy">
+        <div class="open-hint">+</div>
         <div class="layer">Foundations</div>
         <h3>Estrategia & Research</h3>
         <p>Validar nicho, mensaje y pruebas antes de mover tráfico.</p>
         <div class="extra"><span class="pl">+</span> Métricas y dashboard iniciales</div>
       </div>
-      <div class="pcard">
+      <div class="pcard" data-pillar="trust">
+        <div class="open-hint">+</div>
         <div class="layer">Trust</div>
         <h3>Trust Fortress</h3>
         <p>Controlar lo que el mercado encuentra al investigar la marca.</p>
         <div class="extra"><span class="pl">+</span> Incluye sistema de reviews</div>
       </div>
-      <div class="pcard">
+      <div class="pcard" data-pillar="partners">
+        <div class="open-hint">+</div>
         <div class="layer">Demand</div>
         <h3>Partner & Creator Engine</h3>
         <p>Demanda cualificada vía creadores e incentivos medibles.</p>
       </div>
-      <div class="pcard">
+      <div class="pcard" data-pillar="outbound">
+        <div class="open-hint">+</div>
         <div class="layer">B2B</div>
         <h3>Outbound & Niche Conversations</h3>
         <p>Abrir conversaciones donde ya existe intención.</p>
       </div>
-      <div class="pcard">
+      <div class="pcard" data-pillar="conversion">
+        <div class="open-hint">+</div>
         <div class="layer">Owned funnel</div>
         <h3>Conversión & Activación</h3>
         <p>Que el tráfico aterrice y llegue al aha moment.</p>
       </div>
-      <div class="pcard">
+      <div class="pcard" data-pillar="paid">
+        <div class="open-hint">+</div>
         <div class="layer">Amplification</div>
         <h3>Paid Boost</h3>
         <p>Amplificar solo lo que ya demostró señal.</p>
       </div>
-      <div class="pcard">
+      <div class="pcard" data-pillar="flywheel">
+        <div class="open-hint">+</div>
         <div class="layer">Operating rhythm</div>
         <h3>Flywheel & Optimización</h3>
         <p>Convertir aprendizajes en decisiones semanales.</p>
       </div>
-      <div class="pcard">
+      <div class="pcard" data-pillar="delivery">
+        <div class="open-hint">+</div>
         <div class="layer">Program layer</div>
         <h3>Oferta, Venta & Delivery</h3>
         <p>Alinear promesa, firma y forma de trabajar.</p>
@@ -877,7 +992,145 @@
   <div class="counter"><b id="cur">1</b> / 7</div>
 </div>
 
+<!-- PILLAR MODAL -->
+<div class="modal-backdrop" id="pillarModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+    <div class="modal-layer" id="modalLayer"></div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="modal-section-label">Sistemas que incluye</div>
+    <ul class="modal-systems" id="modalSystems"></ul>
+    <div class="modal-foot">El detalle operativo (SOPs, templates, plantillas) lo vemos cuando arranquemos el bloque, no antes.</div>
+  </div>
+</div>
+
 <div class="hint">Use <kbd>←</kbd> <kbd>→</kbd> to navigate</div>
+
+<script>
+  // ----- Pillar data (sistemas, sin SOPs) -----
+  const pillars = {
+    strategy: {
+      layer: 'Foundations',
+      name: 'Estrategia & Research',
+      desc: 'Validar nicho, dolor, precio, claims y lugar de partida antes de meter tráfico en el sistema.',
+      systems: [
+        ['1.1', 'Competitor Analysis'],
+        ['1.2', 'Company Analysis: fortalezas reales, data, casos y credenciales'],
+        ['1.3', 'Place to Win: ICP, nicho y priorización'],
+        ['1.4', 'Asset Selection: qué activos de confianza construir'],
+        ['1.5', 'Prove That You Are Legit: evidence library y señales'],
+        ['1.6', 'Positioning & Messaging por nicho'],
+        ['1.7', 'Customer Discovery, WTP, OPE Canvas y journey'],
+        ['1.8', 'Métricas y dashboard iniciales']
+      ]
+    },
+    trust: {
+      layer: 'Trust layer',
+      name: 'Trust Fortress',
+      desc: 'Controlar lo que el mercado encuentra cuando investiga la marca antes de registrarse o comprar.',
+      systems: [
+        ['2.1', 'Reviews Sistemáticos: NPS, routing y loop semanal'],
+        ['2.2', 'SERP + SEO defensivo: reviews, vs, opiniones, is legit'],
+        ['2.3', 'Web Trust Stack: páginas, proof, widgets y compliance'],
+        ['2.4', 'Schema Markup: FAQ, Review, Organization'],
+        ['2.5', 'GEO / AEO: presencia en ChatGPT, Gemini y Perplexity'],
+        ['2.6', 'PR & Medios: media list, partner kit y deals híbridos'],
+        ['2.7', 'Ranking Articles: entrar en mejores X para Y']
+      ]
+    },
+    partners: {
+      layer: 'Demand layer',
+      name: 'Partner & Creator Engine',
+      desc: 'Generar demanda cualificada con creadores, partners e incentivos medibles hasta activación.',
+      systems: [
+        ['3.0', 'Tracking & Attribution: UTMs, deep links, partner_code y QA'],
+        ['3.1', 'Creator Longlist, outreach y negociación'],
+        ['3.2', 'Brief, compliance y producción de contenido'],
+        ['3.3', 'Whitelisting y reporting por creador'],
+        ['3.4', 'Activation Trigger e incentivos contra unit economics'],
+        ['3.5', 'Niche Testing y asignación de budget por nicho']
+      ]
+    },
+    outbound: {
+      layer: 'B2B / Comunidades',
+      name: 'Outbound & Niche Conversations',
+      desc: 'Abrir conversaciones en cuentas, comunidades y canales donde ya existe intención o dolor activo.',
+      systems: [
+        ['4.1', 'ICP, listas de cuentas, señales y priorización'],
+        ['4.2', 'Secuencia 7-10 toques, personalización y objeciones'],
+        ['4.3', 'Clasificación de replies, booking y prep'],
+        ['4.4', 'Niche Conversations: Reddit, foros, Discord y Telegram'],
+        ['4.5', 'Comment-to-DM y captura de demanda en social']
+      ]
+    },
+    conversion: {
+      layer: 'Owned funnel',
+      name: 'Conversión & Activación',
+      desc: 'Asegurar que el tráfico aterriza en una experiencia que convierte y lleva al usuario al aha moment.',
+      systems: [
+        ['5.1', 'Niche Landings: estructura, copy por nicho e instrumentación'],
+        ['5.2', 'Activation Trigger: datos, workshop, nudges y secuencias'],
+        ['5.3', 'Onboarding: fricciones, abandono y experimentos']
+      ]
+    },
+    paid: {
+      layer: 'Amplification',
+      name: 'Paid Boost',
+      desc: 'Amplificar los activos que ya demostraron señal, evitando gastar en mensajes o audiencias sin prueba.',
+      systems: [
+        ['6.1', 'Banco de ángulos, producción de creatividades y QA claims'],
+        ['6.2', 'Hipótesis, setup de campañas y lectura kill/scale/iterate'],
+        ['6.3', 'Retargeting por intención y secuencias de anuncios']
+      ]
+    },
+    flywheel: {
+      layer: 'Operating rhythm',
+      name: 'Flywheel & Optimización',
+      desc: 'Convertir los aprendizajes del sistema en decisiones semanales, contenido y mejora acumulativa.',
+      systems: [
+        ['7.1', 'Dashboard de Partners y ritual semanal'],
+        ['7.2', 'Burst vs Slow Burn y Build-in-Public Loop'],
+        ['7.3', 'Scorecards por canal, cohortes y payback']
+      ]
+    },
+    delivery: {
+      layer: 'Program layer',
+      name: 'Oferta, Venta & Delivery',
+      desc: 'Alinear lo que se promete, lo que se firma y cómo trabaja el consultor con el cliente.',
+      systems: [
+        ['8.1', 'Promesa, garantías, pricing y límites'],
+        ['8.2', 'Discovery, presentación en vivo y follow-up'],
+        ['8.3', 'Contrato, facturación, kickoff y canal de trabajo']
+      ]
+    }
+  };
+
+  const modal = document.getElementById('pillarModal');
+  const modalLayer = document.getElementById('modalLayer');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalSystems = document.getElementById('modalSystems');
+  const modalClose = document.getElementById('modalClose');
+
+  function openPillar(id) {
+    const p = pillars[id];
+    if (!p) return;
+    modalLayer.textContent = p.layer;
+    modalTitle.textContent = p.name;
+    modalDesc.textContent = p.desc;
+    modalSystems.innerHTML = p.systems.map(([code, txt]) => `<li><code>${code}</code><span>${txt}</span></li>`).join('');
+    modal.classList.add('is-open');
+  }
+  function closeModal() { modal.classList.remove('is-open'); }
+
+  document.querySelectorAll('.pcard[data-pillar]').forEach(card => {
+    card.addEventListener('click', () => openPillar(card.dataset.pillar));
+  });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+</script>
 
 <script>
   const slides = document.querySelectorAll('.slide');
@@ -905,6 +1158,7 @@
   dots.forEach((d, n) => d.addEventListener('click', () => show(n)));
 
   document.addEventListener('keydown', (e) => {
+    if (document.getElementById('pillarModal').classList.contains('is-open')) return;
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(idx + 1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
     if (e.key === 'Home') show(0);
