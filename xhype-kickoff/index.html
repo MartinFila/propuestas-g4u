@@ -145,6 +145,29 @@
       margin-bottom: 24px;
       position: relative;
     }
+    .cover-logos {
+      display: flex; align-items: center; gap: 22px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .cover-logos .xh-logo {
+      width: 64px; height: 64px;
+      border-radius: 14px;
+      background: var(--white);
+      padding: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cover-logos .xh-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .cover-logos .sep {
+      color: var(--green); font-size: 32px; font-weight: 800;
+      line-height: 1;
+    }
+    .cover-logos .g4u-logo {
+      font-size: 26px; font-weight: 800; color: #fff;
+      letter-spacing: -0.025em;
+    }
+    .cover-logos .g4u-logo span { color: var(--green); }
+
     .cover-title {
       font-size: 72px; font-weight: 800;
       letter-spacing: -0.04em; line-height: 1.0;
@@ -180,7 +203,7 @@
     }
     .sit-card {
       background: var(--gray-100); border: 1px solid var(--gray-200);
-      border-radius: 16px; padding: 24px 28px;
+      border-radius: 16px; padding: 28px 34px;
       display: flex; flex-direction: column;
       position: relative; overflow: hidden;
     }
@@ -190,17 +213,17 @@
       width: 4px; background: var(--green);
     }
     .sit-card .tag {
-      font-size: 10px; font-weight: 800;
+      font-size: 11.5px; font-weight: 800;
       letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--green-dark); margin-bottom: 8px;
+      color: var(--green-dark); margin-bottom: 12px;
     }
     .sit-card h3 {
-      font-size: 20px; font-weight: 800;
+      font-size: 24px; font-weight: 800;
       letter-spacing: -0.02em; color: var(--navy);
-      margin-bottom: 8px; line-height: 1.2;
+      margin-bottom: 12px; line-height: 1.18;
     }
     .sit-card p {
-      font-size: 14.5px; color: var(--gray-700); line-height: 1.55;
+      font-size: 17px; color: var(--gray-700); line-height: 1.55;
     }
     .sit-card p strong { color: var(--navy); font-weight: 800; }
 
@@ -227,109 +250,92 @@
       position: relative;
     }
     .te-strip .te-txt {
-      font-size: 15px; color: rgba(255,255,255,0.92); line-height: 1.55;
+      font-size: 16px; color: rgba(255,255,255,0.92); line-height: 1.55;
       position: relative;
     }
     .te-strip .te-txt strong { color: var(--green); font-weight: 800; }
 
     /* ====== SLIDE 1: Recabar info ====== */
-    .info-body { grid-template-columns: 1fr 1fr; }
+    .info-body { grid-template-columns: 1.2fr 1fr; }
     .info-card {
       background: var(--gray-100); border: 1px solid var(--gray-200);
-      border-radius: 16px; padding: 22px 24px;
+      border-radius: 16px; padding: 28px 32px;
       display: flex; flex-direction: column;
     }
     .info-card .label {
-      font-size: 10px; font-weight: 800;
+      font-size: 11px; font-weight: 800;
       letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--green-dark); margin-bottom: 8px;
+      color: var(--green-dark); margin-bottom: 10px;
     }
     .info-card h3 {
-      font-size: 18px; font-weight: 800;
+      font-size: 22px; font-weight: 800;
       letter-spacing: -0.02em; color: var(--navy);
-      margin-bottom: 10px; line-height: 1.2;
+      margin-bottom: 14px; line-height: 1.2;
     }
-    .info-card p { font-size: 13px; color: var(--gray-700); line-height: 1.55; }
 
-    .ask-list { list-style: none; flex: 1; margin-top: 4px; }
+    .ask-list { list-style: none; flex: 1; margin-top: 2px; }
     .ask-list li {
-      font-size: 13px; color: var(--gray-700);
-      line-height: 1.5; padding: 7px 0;
-      display: grid; grid-template-columns: 22px 1fr;
-      gap: 12px; align-items: start;
+      font-size: 16px; color: var(--gray-700);
+      line-height: 1.5; padding: 11px 0;
+      display: grid; grid-template-columns: 26px 1fr;
+      gap: 14px; align-items: start;
       border-top: 1px solid var(--gray-200);
     }
-    .ask-list li:first-child { border-top: none; padding-top: 2px; }
+    .ask-list li:first-child { border-top: none; padding-top: 4px; }
     .ask-list li .num {
-      width: 20px; height: 20px; border-radius: 6px;
+      width: 24px; height: 24px; border-radius: 7px;
       background: var(--navy); color: #fff;
       display: flex; align-items: center; justify-content: center;
-      font-size: 10px; font-weight: 800;
+      font-size: 12px; font-weight: 800;
       margin-top: 1px;
     }
-    .ask-list li strong { display: block; color: var(--navy); font-weight: 800; margin-bottom: 1px; font-size: 13px; }
-    .ask-list li span.desc { font-size: 11.5px; color: var(--gray-700); line-height: 1.45; }
+    .ask-list li strong { display: block; color: var(--navy); font-weight: 800; margin-bottom: 2px; font-size: 16px; }
+    .ask-list li span.desc { font-size: 13.5px; color: var(--gray-700); line-height: 1.5; }
 
     .form-card {
       background: var(--navy); color: #fff;
-      border-radius: 16px; padding: 24px 28px;
-      display: flex; flex-direction: column;
+      border-radius: 16px; padding: 32px 36px;
+      display: flex; flex-direction: column; justify-content: center;
       position: relative; overflow: hidden;
+      text-align: center;
     }
     .form-card::before {
       content: '';
       position: absolute; top: -100px; right: -100px;
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(46,196,160,0.16) 0%, transparent 70%);
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(46,196,160,0.20) 0%, transparent 70%);
       pointer-events: none;
     }
     .form-card .label {
-      font-size: 10px; font-weight: 800;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--green); margin-bottom: 8px;
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 14px;
       position: relative;
     }
     .form-card h3 {
-      font-size: 22px; font-weight: 800;
+      font-size: 28px; font-weight: 800;
       letter-spacing: -0.025em; color: #fff;
-      margin-bottom: 8px; line-height: 1.15;
+      margin-bottom: 14px; line-height: 1.15;
       position: relative;
     }
     .form-card p {
-      font-size: 13px; color: rgba(255,255,255,0.78);
-      line-height: 1.55; margin-bottom: 14px;
+      font-size: 15px; color: rgba(255,255,255,0.75);
+      line-height: 1.55; margin-bottom: 24px;
+      max-width: 320px;
+      align-self: center;
       position: relative;
     }
-    .form-mock {
-      flex: 1;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 10px; padding: 12px;
-      display: flex; flex-direction: column; gap: 6px;
-      position: relative; margin-bottom: 14px;
-    }
-    .form-mock .mock-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 6px 10px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 7px;
-    }
-    .form-mock .mock-row .mk { font-size: 11.5px; font-weight: 700; color: #fff; }
-    .form-mock .mock-row .mv {
-      font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em;
-      color: var(--green); text-transform: uppercase;
-    }
     .form-cta {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 10px;
       background: var(--green); color: var(--navy);
-      font-size: 13px; font-weight: 800;
-      padding: 11px 20px; border-radius: 100px;
-      text-decoration: none; align-self: flex-start;
+      font-size: 15px; font-weight: 800;
+      padding: 14px 24px; border-radius: 100px;
+      text-decoration: none; align-self: center;
       position: relative;
       transition: transform 160ms ease;
     }
     .form-cta:hover { transform: translateY(-1px); }
-    .form-cta .arr { font-size: 16px; }
+    .form-cta .arr { font-size: 17px; }
 
     /* ====== SLIDE 2: Comunicación ====== */
     .comm-body { grid-template-columns: 1fr 1fr; }
@@ -350,13 +356,10 @@
       padding: 4px 11px; border-radius: 100px;
     }
     .ch .ic {
-      width: 56px; height: 56px; border-radius: 14px;
-      background: var(--white); border: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: flex-start;
+      margin-bottom: 16px;
     }
-    .ch.primary .ic { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); }
-    .ch .ic svg { width: 32px; height: 32px; }
+    .ch .ic svg { width: 56px; height: 56px; display: block; }
     .ch h3 {
       font-size: 20px; font-weight: 800;
       letter-spacing: -0.02em; color: var(--navy);
@@ -587,6 +590,11 @@
     </div>
     <div class="cover-body">
       <div class="cover-eyebrow">Done With You · 6 meses</div>
+      <div class="cover-logos">
+        <div class="xh-logo"><img src="xhype-logo.png" alt="Xhype"></div>
+        <div class="sep">×</div>
+        <div class="g4u-logo">Growth<span>4U</span></div>
+      </div>
       <h1 class="cover-title">Kick-off Xhype<span class="sep">×</span>Growth4U</h1>
       <p class="cover-sub">Arrancamos el programa juntos. Esta sesión deja todo listo para empezar a ejecutar mañana.</p>
       <div class="cover-meta">
@@ -664,16 +672,7 @@
       <div class="form-card">
         <div class="label">Formulario inicial</div>
         <h3>Os lo enviamos hoy.</h3>
-        <p>Cuanto más detalle nos paséis, mejor arranque. Si algo no lo tenéis a mano, lo recogemos después.</p>
-
-        <div class="form-mock">
-          <div class="mock-row"><div class="mk">Negocio y modelo</div><div class="mv">Abierto</div></div>
-          <div class="mock-row"><div class="mk">Métricas actuales</div><div class="mv">Campos</div></div>
-          <div class="mock-row"><div class="mk">Accesos y herramientas</div><div class="mv">Checklist</div></div>
-          <div class="mock-row"><div class="mk">Equipo y contactos</div><div class="mv">Tabla</div></div>
-          <div class="mock-row"><div class="mk">Contexto interno</div><div class="mv">Abierto</div></div>
-        </div>
-
+        <p>Lo rellenáis a vuestro ritmo. Cuanto más detalle, mejor arranque del programa.</p>
         <a class="form-cta" href="https://www.notion.so/Form-Inicial-Cliente-Xhype-eaada3bd9cea412e847731110f587724" target="_blank" rel="noopener">
           Abrir formulario en Notion <span class="arr">→</span>
         </a>
