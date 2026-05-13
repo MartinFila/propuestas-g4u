@@ -862,55 +862,55 @@
     <p class="lede">No son fases con orden fijo. Son bloques independientes. Atacamos el que más mueva el negocio en cada momento.</p>
 
     <div class="pillars-body">
-      <div class="pcard" data-pillar="strategy">
+      <div class="pcard p-foundations" data-pillar="research">
         <div class="open-hint">+</div>
         <div class="layer">Foundations</div>
-        <h3>Estrategia & Research</h3>
-        <p>Validar nicho, mensaje y pruebas antes de mover tráfico.</p>
+        <h3>Research</h3>
+        <p>Entender mercado, competencia y propio negocio antes de decidir nada.</p>
+      </div>
+      <div class="pcard p-foundations" data-pillar="gtm">
+        <div class="open-hint">+</div>
+        <div class="layer">Foundations</div>
+        <h3>GTM Strategy</h3>
+        <p>El plan, el nicho, el mensaje y la promesa que vamos a defender.</p>
         <div class="extra"><span class="pl">+</span> Métricas y dashboard iniciales</div>
       </div>
-      <div class="pcard" data-pillar="trust">
+      <div class="pcard p-trust" data-pillar="trust">
         <div class="open-hint">+</div>
         <div class="layer">Trust</div>
         <h3>Trust Fortress</h3>
         <p>Controlar lo que el mercado encuentra al investigar la marca.</p>
         <div class="extra"><span class="pl">+</span> Incluye sistema de reviews</div>
       </div>
-      <div class="pcard" data-pillar="partners">
+      <div class="pcard p-demand" data-pillar="partners">
         <div class="open-hint">+</div>
         <div class="layer">Demand</div>
         <h3>Partner & Creator Engine</h3>
         <p>Demanda cualificada vía creadores e incentivos medibles.</p>
       </div>
-      <div class="pcard" data-pillar="outbound">
+      <div class="pcard p-b2b" data-pillar="outbound">
         <div class="open-hint">+</div>
         <div class="layer">B2B</div>
         <h3>Outbound & Niche Conversations</h3>
         <p>Abrir conversaciones donde ya existe intención.</p>
       </div>
-      <div class="pcard" data-pillar="conversion">
+      <div class="pcard p-conv" data-pillar="conversion">
         <div class="open-hint">+</div>
         <div class="layer">Owned funnel</div>
         <h3>Conversión & Activación</h3>
         <p>Que el tráfico aterrice y llegue al aha moment.</p>
       </div>
-      <div class="pcard" data-pillar="paid">
+      <div class="pcard p-paid" data-pillar="paid">
         <div class="open-hint">+</div>
         <div class="layer">Amplification</div>
         <h3>Paid Boost</h3>
         <p>Amplificar solo lo que ya demostró señal.</p>
       </div>
-      <div class="pcard" data-pillar="flywheel">
+      <div class="pcard p-operate" data-pillar="flywheel">
         <div class="open-hint">+</div>
         <div class="layer">Operating rhythm</div>
         <h3>Flywheel & Optimización</h3>
         <p>Convertir aprendizajes en decisiones semanales.</p>
-      </div>
-      <div class="pcard" data-pillar="delivery">
-        <div class="open-hint">+</div>
-        <div class="layer">Program layer</div>
-        <h3>Oferta, Venta & Delivery</h3>
-        <p>Alinear promesa, firma y forma de trabajar.</p>
       </div>
     </div>
 
@@ -1010,19 +1010,28 @@
 <script>
   // ----- Pillar data (sistemas, sin SOPs) -----
   const pillars = {
-    strategy: {
+    research: {
       layer: 'Foundations',
-      name: 'Estrategia & Research',
-      desc: 'Validar nicho, dolor, precio, claims y lugar de partida antes de meter tráfico en el sistema.',
+      name: 'Research',
+      desc: 'Entender el mercado, la competencia y el propio negocio antes de decidir nada de adquisición.',
       systems: [
-        ['1.1', 'Competitor Analysis'],
-        ['1.2', 'Company Analysis: fortalezas reales, data, casos y credenciales'],
-        ['1.3', 'Place to Win: ICP, nicho y priorización'],
-        ['1.4', 'Asset Selection: qué activos de confianza construir'],
-        ['1.5', 'Prove That You Are Legit: evidence library y señales'],
-        ['1.6', 'Positioning & Messaging por nicho'],
-        ['1.7', 'Customer Discovery, WTP, OPE Canvas y journey'],
-        ['1.8', 'Métricas y dashboard iniciales']
+        ['1.1', 'Market Analysis: tamaño, dinámica, tendencias y regulación'],
+        ['1.2', 'Competitor Analysis: claims, ofertas y posicionamiento'],
+        ['1.3', 'Company Analysis: fortalezas reales, data, casos y credenciales'],
+        ['1.4', 'Customer Discovery: entrevistas, WTP, OPE Canvas y journey']
+      ]
+    },
+    gtm: {
+      layer: 'Foundations',
+      name: 'GTM Strategy',
+      desc: 'Diseñar el plan, el nicho, el mensaje y la promesa que vamos a defender en el mercado.',
+      systems: [
+        ['2.1', 'Plan Estratégico: roadmap de adquisición y objetivos por trimestre'],
+        ['2.2', 'Place to Win: ICP, nicho y priorización'],
+        ['2.3', 'Asset Selection: qué activos de confianza construir'],
+        ['2.4', 'Prove That You Are Legit: evidence library y señales'],
+        ['2.5', 'Positioning & Messaging por nicho'],
+        ['2.6', 'Métricas y dashboard iniciales']
       ]
     },
     trust: {
@@ -1030,13 +1039,13 @@
       name: 'Trust Fortress',
       desc: 'Controlar lo que el mercado encuentra cuando investiga la marca antes de registrarse o comprar.',
       systems: [
-        ['2.1', 'Reviews Sistemáticos: NPS, routing y loop semanal'],
-        ['2.2', 'SERP + SEO defensivo: reviews, vs, opiniones, is legit'],
-        ['2.3', 'Web Trust Stack: páginas, proof, widgets y compliance'],
-        ['2.4', 'Schema Markup: FAQ, Review, Organization'],
-        ['2.5', 'GEO / AEO: presencia en ChatGPT, Gemini y Perplexity'],
-        ['2.6', 'PR & Medios: media list, partner kit y deals híbridos'],
-        ['2.7', 'Ranking Articles: entrar en mejores X para Y']
+        ['3.1', 'Reviews Sistemáticos: NPS, routing y loop semanal'],
+        ['3.2', 'SERP + SEO defensivo: reviews, vs, opiniones, is legit'],
+        ['3.3', 'Web Trust Stack: páginas, proof, widgets y compliance'],
+        ['3.4', 'Schema Markup: FAQ, Review, Organization'],
+        ['3.5', 'GEO / AEO: presencia en ChatGPT, Gemini y Perplexity'],
+        ['3.6', 'PR & Medios: media list, partner kit y deals híbridos'],
+        ['3.7', 'Ranking Articles: entrar en mejores X para Y']
       ]
     },
     partners: {
@@ -1044,12 +1053,12 @@
       name: 'Partner & Creator Engine',
       desc: 'Generar demanda cualificada con creadores, partners e incentivos medibles hasta activación.',
       systems: [
-        ['3.0', 'Tracking & Attribution: UTMs, deep links, partner_code y QA'],
-        ['3.1', 'Creator Longlist, outreach y negociación'],
-        ['3.2', 'Brief, compliance y producción de contenido'],
-        ['3.3', 'Whitelisting y reporting por creador'],
-        ['3.4', 'Activation Trigger e incentivos contra unit economics'],
-        ['3.5', 'Niche Testing y asignación de budget por nicho']
+        ['4.0', 'Tracking & Attribution: UTMs, deep links, partner_code y QA'],
+        ['4.1', 'Creator Longlist, outreach y negociación'],
+        ['4.2', 'Brief, compliance y producción de contenido'],
+        ['4.3', 'Whitelisting y reporting por creador'],
+        ['4.4', 'Activation Trigger e incentivos contra unit economics'],
+        ['4.5', 'Niche Testing y asignación de budget por nicho']
       ]
     },
     outbound: {
@@ -1057,11 +1066,11 @@
       name: 'Outbound & Niche Conversations',
       desc: 'Abrir conversaciones en cuentas, comunidades y canales donde ya existe intención o dolor activo.',
       systems: [
-        ['4.1', 'ICP, listas de cuentas, señales y priorización'],
-        ['4.2', 'Secuencia 7-10 toques, personalización y objeciones'],
-        ['4.3', 'Clasificación de replies, booking y prep'],
-        ['4.4', 'Niche Conversations: Reddit, foros, Discord y Telegram'],
-        ['4.5', 'Comment-to-DM y captura de demanda en social']
+        ['5.1', 'ICP, listas de cuentas, señales y priorización'],
+        ['5.2', 'Secuencia 7-10 toques, personalización y objeciones'],
+        ['5.3', 'Clasificación de replies, booking y prep'],
+        ['5.4', 'Niche Conversations: Reddit, foros, Discord y Telegram'],
+        ['5.5', 'Comment-to-DM y captura de demanda en social']
       ]
     },
     conversion: {
@@ -1069,9 +1078,9 @@
       name: 'Conversión & Activación',
       desc: 'Asegurar que el tráfico aterriza en una experiencia que convierte y lleva al usuario al aha moment.',
       systems: [
-        ['5.1', 'Niche Landings: estructura, copy por nicho e instrumentación'],
-        ['5.2', 'Activation Trigger: datos, workshop, nudges y secuencias'],
-        ['5.3', 'Onboarding: fricciones, abandono y experimentos']
+        ['6.1', 'Niche Landings: estructura, copy por nicho e instrumentación'],
+        ['6.2', 'Activation Trigger: datos, workshop, nudges y secuencias'],
+        ['6.3', 'Onboarding: fricciones, abandono y experimentos']
       ]
     },
     paid: {
@@ -1079,9 +1088,9 @@
       name: 'Paid Boost',
       desc: 'Amplificar los activos que ya demostraron señal, evitando gastar en mensajes o audiencias sin prueba.',
       systems: [
-        ['6.1', 'Banco de ángulos, producción de creatividades y QA claims'],
-        ['6.2', 'Hipótesis, setup de campañas y lectura kill/scale/iterate'],
-        ['6.3', 'Retargeting por intención y secuencias de anuncios']
+        ['7.1', 'Banco de ángulos, producción de creatividades y QA claims'],
+        ['7.2', 'Hipótesis, setup de campañas y lectura kill/scale/iterate'],
+        ['7.3', 'Retargeting por intención y secuencias de anuncios']
       ]
     },
     flywheel: {
@@ -1089,19 +1098,9 @@
       name: 'Flywheel & Optimización',
       desc: 'Convertir los aprendizajes del sistema en decisiones semanales, contenido y mejora acumulativa.',
       systems: [
-        ['7.1', 'Dashboard de Partners y ritual semanal'],
-        ['7.2', 'Burst vs Slow Burn y Build-in-Public Loop'],
-        ['7.3', 'Scorecards por canal, cohortes y payback']
-      ]
-    },
-    delivery: {
-      layer: 'Program layer',
-      name: 'Oferta, Venta & Delivery',
-      desc: 'Alinear lo que se promete, lo que se firma y cómo trabaja el consultor con el cliente.',
-      systems: [
-        ['8.1', 'Promesa, garantías, pricing y límites'],
-        ['8.2', 'Discovery, presentación en vivo y follow-up'],
-        ['8.3', 'Contrato, facturación, kickoff y canal de trabajo']
+        ['8.1', 'Dashboard de Partners y ritual semanal'],
+        ['8.2', 'Burst vs Slow Burn y Build-in-Public Loop'],
+        ['8.3', 'Scorecards por canal, cohortes y payback']
       ]
     }
   };
