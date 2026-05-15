@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kick-off Innatica × Growth4U</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2EC4A0;
+      --green-light: #e8f9f5;
+      --green-dark: #1a9d7e;
+      --navy: #1a2744;
+      --navy-light: #2a365a;
+      --white: #ffffff;
+      --gray-100: #f7f8fc;
+      --gray-200: #eef0f6;
+      --gray-300: #d8dde8;
+      --gray-400: #9099b0;
+      --gray-700: #3d4560;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      background: var(--gray-200);
+      color: var(--navy);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      padding: 36px 56px 96px;
+      background: var(--white);
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 360ms ease, transform 360ms ease;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .slide.is-active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+    .slide.is-prev { opacity: 0; transform: translateX(-40px); }
+
+    .slide-head {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px; flex-shrink: 0;
+    }
+    .brand { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--navy); }
+    .brand span { color: var(--green); }
+    .slide-num {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gray-400);
+    }
+    .slide-num b { color: var(--navy); }
+
+    .eyebrow {
+      display: inline-block;
+      background: var(--green-light); color: var(--green-dark);
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 34px; font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.1;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    h1 span { color: var(--green); }
+    .lede {
+      font-size: 15px; color: var(--gray-700);
+      max-width: 760px; line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .nav {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 14px;
+      background: var(--navy); color: #fff;
+      padding: 10px 18px; border-radius: 100px;
+      z-index: 50; box-shadow: 0 8px 24px rgba(26,39,68,0.25);
+    }
+    .nav button {
+      background: transparent; border: none; color: #fff;
+      cursor: pointer; font-size: 18px; width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; transition: background 160ms ease;
+    }
+    .nav button:hover { background: rgba(255,255,255,0.12); }
+    .nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+    .nav .dots { display: flex; gap: 8px; padding: 0 6px; }
+    .nav .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      cursor: pointer; transition: background 160ms ease;
+    }
+    .nav .dot.is-active { background: var(--green); }
+    .nav .counter { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); padding-left: 4px; }
+    .nav .counter b { color: #fff; }
+
+    .body-grid { flex: 1; display: grid; gap: 18px; min-height: 0; }
+
+    /* ====== SLIDE COVER ====== */
+    .slide.cover {
+      background: var(--navy); color: #fff;
+      padding: 0;
+      position: absolute; inset: 0;
+    }
+    .slide.cover .slide-head { padding: 36px 56px 0; margin-bottom: 0; }
+    .slide.cover .brand { color: #fff; }
+    .slide.cover .slide-num { color: rgba(255,255,255,0.45); }
+    .slide.cover .slide-num b { color: var(--green); }
+    .cover-body {
+      flex: 1; padding: 0 56px 96px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative;
+    }
+    .cover-body::before {
+      content: '';
+      position: absolute; top: -120px; right: -120px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(46,196,160,0.20) 0%, transparent 70%);
+    }
+    .cover-body::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(46,196,160,0.10) 0%, transparent 70%);
+    }
+    .cover-eyebrow {
+      display: inline-flex; align-self: flex-start;
+      background: rgba(46,196,160,0.15); color: var(--green);
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .cover-logos {
+      display: flex; align-items: center; gap: 22px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .cover-logos .client-text {
+      font-size: 32px; font-weight: 800; color: #fff;
+      letter-spacing: -0.025em;
+      padding: 14px 26px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(46,196,160,0.25);
+      border-radius: 14px;
+    }
+    .cover-logos .sep {
+      color: var(--green); font-size: 32px; font-weight: 800;
+      line-height: 1;
+    }
+    .cover-logos .g4u-logo {
+      font-size: 26px; font-weight: 800; color: #fff;
+      letter-spacing: -0.025em;
+    }
+    .cover-logos .g4u-logo span { color: var(--green); }
+
+    .cover-title {
+      font-size: 72px; font-weight: 800;
+      letter-spacing: -0.04em; line-height: 1.0;
+      color: #fff; margin-bottom: 24px;
+      position: relative;
+    }
+    .cover-title .sep { color: var(--green); margin: 0 14px; font-weight: 800; }
+    .cover-sub {
+      font-size: 20px; color: rgba(255,255,255,0.65);
+      max-width: 560px; line-height: 1.5; font-weight: 400;
+      margin-bottom: 36px;
+      position: relative;
+    }
+    .cover-meta {
+      display: flex; gap: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      position: relative;
+    }
+    .cover-meta .item .label {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 4px;
+    }
+    .cover-meta .item .val { font-size: 14px; font-weight: 700; color: #fff; }
+
+    /* ====== SLIDE INTRO / SITUACIÓN ====== */
+    .situation-grid {
+      flex: 1; display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px; min-height: 0;
+    }
+    .sit-card {
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      border-radius: 16px; padding: 28px 34px;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+    .sit-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0;
+      width: 4px; background: var(--green);
+    }
+    .sit-card .tag {
+      font-size: 11.5px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-dark); margin-bottom: 12px;
+    }
+    .sit-card h3 {
+      font-size: 24px; font-weight: 800;
+      letter-spacing: -0.02em; color: var(--navy);
+      margin-bottom: 12px; line-height: 1.18;
+    }
+    .sit-card p {
+      font-size: 17px; color: var(--gray-700); line-height: 1.55;
+    }
+    .sit-card p strong { color: var(--navy); font-weight: 800; }
+
+    .te-strip {
+      flex-shrink: 0; margin-top: 16px;
+      background: var(--navy); color: #fff;
+      border-radius: 14px; padding: 18px 28px;
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 22px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .te-strip::before {
+      content: '';
+      position: absolute; top: -80px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(46,196,160,0.16) 0%, transparent 70%);
+    }
+    .te-strip .te-tag {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green);
+      padding: 6px 14px; border-radius: 100px;
+      background: rgba(46,196,160,0.15);
+      position: relative;
+    }
+    .te-strip .te-txt {
+      font-size: 16px; color: rgba(255,255,255,0.92); line-height: 1.55;
+      position: relative;
+    }
+    .te-strip .te-txt strong { color: var(--green); font-weight: 800; }
+
+    /* ====== SLIDE 1: Recabar info ====== */
+    .info-body { grid-template-columns: 1.2fr 1fr; }
+    .info-card {
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      border-radius: 16px; padding: 28px 32px;
+      display: flex; flex-direction: column;
+    }
+    .info-card .label {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-dark); margin-bottom: 10px;
+    }
+    .info-card h3 {
+      font-size: 22px; font-weight: 800;
+      letter-spacing: -0.02em; color: var(--navy);
+      margin-bottom: 14px; line-height: 1.2;
+    }
+
+    .ask-list { list-style: none; flex: 1; margin-top: 2px; }
+    .ask-list li {
+      font-size: 16px; color: var(--gray-700);
+      line-height: 1.5; padding: 11px 0;
+      display: grid; grid-template-columns: 26px 1fr;
+      gap: 14px; align-items: start;
+      border-top: 1px solid var(--gray-200);
+    }
+    .ask-list li:first-child { border-top: none; padding-top: 4px; }
+    .ask-list li .num {
+      width: 24px; height: 24px; border-radius: 7px;
+      background: var(--navy); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+      margin-top: 1px;
+    }
+    .ask-list li strong { display: block; color: var(--navy); font-weight: 800; margin-bottom: 2px; font-size: 16px; }
+    .ask-list li span.desc { font-size: 13.5px; color: var(--gray-700); line-height: 1.5; }
+
+    .form-card {
+      background: var(--navy); color: #fff;
+      border-radius: 16px; padding: 32px 36px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .form-card::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(46,196,160,0.20) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .form-card .label {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 14px;
+      position: relative;
+    }
+    .form-card h3 {
+      font-size: 28px; font-weight: 800;
+      letter-spacing: -0.025em; color: #fff;
+      margin-bottom: 14px; line-height: 1.15;
+      position: relative;
+    }
+    .form-card p {
+      font-size: 15px; color: rgba(255,255,255,0.75);
+      line-height: 1.55; margin-bottom: 24px;
+      max-width: 320px;
+      align-self: center;
+      position: relative;
+    }
+    .form-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green); color: var(--navy);
+      font-size: 15px; font-weight: 800;
+      padding: 14px 24px; border-radius: 100px;
+      text-decoration: none; align-self: center;
+      position: relative;
+      transition: transform 160ms ease;
+    }
+    .form-cta:hover { transform: translateY(-1px); }
+    .form-cta .arr { font-size: 17px; }
+
+    /* ====== SLIDE 2: Comunicación ====== */
+    .comm-body { grid-template-columns: 1fr 1fr; }
+    .ch {
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      border-radius: 16px; padding: 22px 26px;
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+    .ch.primary {
+      background: var(--navy); color: #fff;
+      border-color: var(--navy);
+    }
+    .ch .badge {
+      position: absolute; top: 22px; right: 24px;
+      background: var(--green); color: var(--navy);
+      font-size: 9px; font-weight: 800; letter-spacing: 0.16em;
+      padding: 4px 11px; border-radius: 100px;
+    }
+    .ch .ic {
+      display: flex; align-items: center; justify-content: flex-start;
+      margin-bottom: 16px;
+    }
+    .ch .ic svg { width: 56px; height: 56px; display: block; }
+    .ch h3 {
+      font-size: 20px; font-weight: 800;
+      letter-spacing: -0.02em; color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .ch.primary h3 { color: #fff; }
+    .ch .sub { font-size: 12px; color: var(--gray-400); margin-bottom: 12px; }
+    .ch.primary .sub { color: rgba(255,255,255,0.5); }
+    .ch ul { list-style: none; flex: 1; }
+    .ch ul li {
+      font-size: 13px; color: var(--gray-700); line-height: 1.5;
+      padding: 5px 0; display: flex; gap: 10px; align-items: flex-start;
+    }
+    .ch.primary ul li { color: rgba(255,255,255,0.85); }
+    .ch ul li::before {
+      content: '→'; font-weight: 800; color: var(--green-dark);
+      flex-shrink: 0;
+    }
+    .ch.primary ul li::before { color: var(--green); }
+
+    .email-note {
+      flex-shrink: 0; margin-top: 14px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px; padding: 12px 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .email-note .lbl {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gray-400); flex-shrink: 0;
+    }
+    .email-note .txt {
+      font-size: 13.5px; color: var(--gray-700); line-height: 1.5;
+    }
+    .email-note .txt strong { color: var(--navy); font-weight: 800; }
+
+    /* ====== SLIDE 3: Pilares ====== */
+    .pillars-body {
+      flex: 1; display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 1fr 1fr;
+      gap: 14px; min-height: 0;
+    }
+    .pcard {
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      border-radius: 14px; padding: 22px 22px 24px;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .pcard:hover {
+      transform: translateY(-2px);
+      border-color: var(--green);
+      box-shadow: 0 8px 24px rgba(46,196,160,0.12);
+    }
+    .pcard .open-hint {
+      position: absolute; top: 14px; right: 14px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--white); border: 1px solid var(--gray-200);
+      color: var(--gray-400);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; line-height: 1;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    .pcard:hover .open-hint {
+      background: var(--green); color: var(--navy);
+      border-color: var(--green);
+    }
+    .pcard::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--green);
+    }
+    .pcard .layer {
+      font-size: 9.5px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-dark); margin-bottom: 10px;
+    }
+    .pcard h3 {
+      font-size: 18px; font-weight: 800;
+      letter-spacing: -0.02em; color: var(--navy);
+      line-height: 1.2; margin-bottom: 8px;
+    }
+    .pcard p {
+      font-size: 13px; color: var(--gray-700);
+      line-height: 1.5; flex: 1;
+    }
+    .pcard .extra {
+      margin-top: 10px;
+      display: inline-flex; align-items: center; gap: 6px;
+      align-self: flex-start;
+      background: var(--green-light); color: var(--green-dark);
+      font-size: 11px; font-weight: 700;
+      padding: 5px 10px; border-radius: 100px;
+      line-height: 1.3;
+    }
+    .pcard .extra .pl { font-weight: 800; }
+
+    .order-note {
+      flex-shrink: 0; margin-top: 16px;
+      background: var(--navy); color: #fff;
+      border-radius: 12px; padding: 14px 22px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .order-note .icn {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(46,196,160,0.15); color: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; flex-shrink: 0;
+    }
+    .order-note .txt {
+      font-size: 13.5px; color: rgba(255,255,255,0.9); line-height: 1.5;
+    }
+    .order-note .txt strong { color: var(--green); font-weight: 700; }
+
+    /* ====== SLIDE CLOSING ====== */
+    .slide.closing {
+      background: var(--navy); color: #fff;
+      padding: 0;
+    }
+    .slide.closing .slide-head { padding: 36px 56px 0; margin-bottom: 0; }
+    .slide.closing .brand { color: #fff; }
+    .slide.closing .slide-num { color: rgba(255,255,255,0.45); }
+    .slide.closing .slide-num b { color: var(--green); }
+    .closing-body {
+      flex: 1; padding: 0 56px 96px;
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: center; text-align: center;
+      position: relative;
+    }
+    .closing-body::before {
+      content: '';
+      position: absolute; top: -140px; left: 50%; transform: translateX(-50%);
+      width: 460px; height: 460px;
+      background: radial-gradient(circle, rgba(46,196,160,0.20) 0%, transparent 70%);
+    }
+    .closing-eyebrow {
+      display: inline-flex;
+      background: rgba(46,196,160,0.18); color: var(--green);
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .closing-title {
+      font-size: 88px; font-weight: 800;
+      letter-spacing: -0.045em; line-height: 0.95;
+      color: #fff; margin-bottom: 20px;
+      position: relative;
+    }
+    .closing-title span { color: var(--green); }
+    .closing-sub {
+      font-size: 19px; color: rgba(255,255,255,0.65);
+      max-width: 520px; line-height: 1.5;
+      position: relative;
+    }
+
+    /* ====== SLIDE 4: Cómo ejecutamos ====== */
+    .exec-body { grid-template-columns: 1fr 1fr; }
+    .tool-card {
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      border-radius: 18px; padding: 30px 34px;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+    .tool-card.feature {
+      background: var(--navy); color: #fff;
+    }
+    .tool-card.feature::before {
+      content: '';
+      position: absolute; bottom: -120px; right: -100px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(46,196,160,0.16) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .tool-card .pill {
+      display: inline-flex; align-self: flex-start;
+      background: var(--green-light); color: var(--green-dark);
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .tool-card.feature .pill { background: rgba(46,196,160,0.15); color: var(--green); }
+    .tool-card h3 {
+      font-size: 26px; font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.15;
+      color: var(--navy); margin-bottom: 10px;
+      position: relative;
+    }
+    .tool-card.feature h3 { color: #fff; }
+    .tool-card .desc {
+      font-size: 14px; color: var(--gray-700); line-height: 1.6;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .tool-card.feature .desc { color: rgba(255,255,255,0.78); }
+    .tool-card ul { list-style: none; flex: 1; position: relative; }
+    .tool-card ul li {
+      font-size: 13.5px; color: var(--gray-700); line-height: 1.55;
+      padding: 6px 0; display: flex; gap: 10px; align-items: flex-start;
+    }
+    .tool-card.feature ul li { color: rgba(255,255,255,0.88); }
+    .tool-card ul li::before {
+      content: '✓'; color: var(--green-dark); font-weight: 800;
+      flex-shrink: 0;
+    }
+    .tool-card.feature ul li::before { color: var(--green); }
+
+    .skills-strip {
+      flex-shrink: 0; margin-top: 22px;
+      background: var(--green-light);
+      border: 1px solid rgba(46,196,160,0.3);
+      border-radius: 14px; padding: 18px 26px;
+      display: grid; grid-template-columns: 44px 1fr;
+      gap: 18px; align-items: center;
+    }
+    .skills-strip .ki {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--green); color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; flex-shrink: 0;
+    }
+    .skills-strip .kt {
+      font-size: 14px; color: var(--navy); line-height: 1.55;
+    }
+    .skills-strip .kt strong { font-weight: 800; }
+
+    /* ====== MODAL (pillar detail) ====== */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(26,39,68,0.55);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+      z-index: 200;
+    }
+    .modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+    .modal {
+      background: var(--white);
+      border-radius: 20px;
+      max-width: 720px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(26,39,68,0.35);
+      padding: 36px 44px 36px;
+      position: relative;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 240ms ease;
+    }
+    .modal-backdrop.is-open .modal { transform: translateY(0) scale(1); }
+    .modal-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 20px; line-height: 1;
+      transition: background 160ms ease, color 160ms ease;
+    }
+    .modal-close:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .modal-layer {
+      display: inline-block;
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-dark);
+      background: var(--green-light);
+      padding: 5px 12px; border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .modal-title {
+      font-size: 30px; font-weight: 800;
+      letter-spacing: -0.025em; color: var(--navy);
+      line-height: 1.15; margin-bottom: 10px;
+    }
+    .modal-desc {
+      font-size: 15px; color: var(--gray-700); line-height: 1.55;
+      margin-bottom: 22px;
+    }
+    .modal-section-label {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gray-400); margin-bottom: 12px;
+      padding-top: 18px; border-top: 1px solid var(--gray-200);
+    }
+    .modal-systems { list-style: none; }
+    .modal-systems li {
+      display: grid; grid-template-columns: 52px 1fr;
+      gap: 16px; align-items: start;
+      padding: 12px 0;
+      border-top: 1px solid var(--gray-200);
+    }
+    .modal-systems li:first-child { border-top: none; }
+    .modal-systems li code {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px; font-weight: 800; color: var(--green-dark);
+      background: var(--green-light);
+      padding: 3px 8px; border-radius: 6px;
+      text-align: center;
+      letter-spacing: 0.02em;
+      align-self: start;
+    }
+    .modal-systems li span {
+      font-size: 14.5px; color: var(--gray-700); line-height: 1.5;
+    }
+    .modal-systems li span b { color: var(--navy); font-weight: 800; }
+    .modal-foot {
+      margin-top: 22px; padding-top: 16px;
+      border-top: 1px solid var(--gray-200);
+      font-size: 12px; color: var(--gray-400);
+      letter-spacing: 0.02em;
+    }
+    .modal-foot strong { color: var(--navy); font-weight: 700; }
+
+    .hint {
+      position: fixed; bottom: 24px; right: 24px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gray-400);
+      background: var(--white); border: 1px solid var(--gray-200);
+      padding: 8px 12px; border-radius: 100px;
+      z-index: 40;
+    }
+    .hint kbd {
+      font-family: inherit; font-size: 10px;
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      padding: 1px 6px; border-radius: 4px; margin: 0 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- SLIDE COVER -->
+  <section class="slide cover is-active" data-slide="1">
+    <div class="slide-head">
+      <div class="brand">Growth<span>4U</span></div>
+      <div class="slide-num"><b>01</b> / 06</div>
+    </div>
+    <div class="cover-body">
+      <div class="cover-eyebrow">Done With You · 6 meses</div>
+      <div class="cover-logos">
+        <div class="client-text">Innatica</div>
+        <div class="sep">×</div>
+        <div class="g4u-logo">Growth<span>4U</span></div>
+      </div>
+      <h1 class="cover-title">Kick-off Innatica<span class="sep">×</span>Growth4U</h1>
+      <p class="cover-sub">Arrancamos el programa juntos. Esta sesión deja todo listo para empezar a ejecutar mañana.</p>
+      <div class="cover-meta">
+        <div class="item"><div class="label">Fecha</div><div class="val">13 mayo 2026</div></div>
+        <div class="item"><div class="label">Duración</div><div class="val">45 minutos</div></div>
+        <div class="item"><div class="label">Equipo G4U</div><div class="val">Martín · Alfonso · Philippe</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE INTRO / OBJETIVO -->
+  <section class="slide" data-slide="2">
+    <div class="slide-head">
+      <div class="brand">Growth<span>4U</span></div>
+      <div class="slide-num"><b>02</b> / 06</div>
+    </div>
+
+    <div class="eyebrow">Por qué estamos aquí</div>
+    <h1>La <span>situación</span> que tiene Innatica delante.</h1>
+    <p class="lede">Antes de empezar, alineamos sobre lo que el negocio necesita resolver en los próximos meses.</p>
+
+    <div class="situation-grid">
+      <div class="sit-card">
+        <div class="tag">Junio · cambio regulatorio</div>
+        <h3>Lanzamiento de la tarjeta con KYC</h3>
+        <p>Un cambio crítico que va a <strong>multiplicar la búsqueda</strong> de prueba antes de registrarse. Lo que el usuario encuentre sobre Innatica en esas semanas decide si convierte o se va.</p>
+      </div>
+      <div class="sit-card">
+        <div class="tag">Tracción real</div>
+        <h3>Crecimiento orgánico sostenido</h3>
+        <p><strong>11-15% MoM</strong>, 940 xKard activas y 33% del revenue desde referidos. El producto funciona. Lo que falta es escalar adquisición sin depender solo de paid.</p>
+      </div>
+      <div class="sit-card">
+        <div class="tag">Histórico</div>
+        <h3>Marketing pendiente de construirse</h3>
+        <p>Menos de <strong>5K€ invertidos en marketing</strong> hasta hoy. No hay reviews acumuladas, ni SERP defendido, ni PR. La base de confianza online prácticamente no existe.</p>
+      </div>
+      <div class="sit-card">
+        <div class="tag">La fricción · Sergi, 23 abr</div>
+        <h3>Pérdida silenciosa a competidores</h3>
+        <p>"Los usuarios investigan y pueden ser captados por la competencia <strong>si no hay una base de confianza sólida</strong>. La competencia se lleva clientes de forma orgánica."</p>
+      </div>
+    </div>
+
+    <div class="te-strip">
+      <div class="te-tag">Trust Engine</div>
+      <div class="te-txt">Nuestro programa para <strong>construir esa base de confianza sistémica</strong> que hoy falta. Lo vemos en detalle en las siguientes slides.</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: Recabar información del negocio -->
+  <section class="slide" data-slide="3">
+    <div class="slide-head">
+      <div class="brand">Growth<span>4U</span></div>
+      <div class="slide-num"><b>03</b> / 06</div>
+    </div>
+
+    <div class="eyebrow">Primer paso</div>
+    <h1>Recabar <span>información del negocio</span>.</h1>
+    <p class="lede">Para diseñar bien lo que vamos a hacer, necesitamos entender en profundidad cómo está Innatica hoy. Os enviamos un formulario inicial que nos da la base para empezar.</p>
+
+    <div class="body-grid info-body">
+      <div class="info-card">
+        <div class="label">Lo que necesitamos</div>
+        <h3>Qué pedimos en el formulario</h3>
+        <ul class="ask-list">
+          <li><div class="num">1</div><div><strong>Negocio y modelo</strong><span class="desc">Productos, verticales, ingresos, márgenes, ronda en curso.</span></div></li>
+          <li><div class="num">2</div><div><strong>Métricas actuales</strong><span class="desc">Usuarios, conversión, CAC, retención, canales que mueven.</span></div></li>
+          <li><div class="num">3</div><div><strong>Accesos y herramientas</strong><span class="desc">Analytics, ad accounts, CMS, herramientas internas.</span></div></li>
+          <li><div class="num">4</div><div><strong>Equipo y contactos</strong><span class="desc">Quién decide qué, quién ejecuta, quién aprueba.</span></div></li>
+          <li><div class="num">5</div><div><strong>Contexto interno</strong><span class="desc">Lo que ya habéis probado, lo que descartasteis, restricciones.</span></div></li>
+        </ul>
+      </div>
+
+      <div class="form-card">
+        <div class="label">Formulario inicial</div>
+        <h3>Os lo enviamos hoy.</h3>
+        <p>Lo rellenáis a vuestro ritmo. Cuanto más detalle, mejor arranque del programa.</p>
+        <a class="form-cta" href="https://www.notion.so/Formulario-inicial-Innatica-48436994675a46cd97833d9b23992066" target="_blank" rel="noopener">
+          Abrir formulario en Notion <span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: Comunicación -->
+  <section class="slide" data-slide="4">
+    <div class="slide-head">
+      <div class="brand">Growth<span>4U</span></div>
+      <div class="slide-num"><b>04</b> / 07</div>
+    </div>
+
+    <div class="eyebrow">Cómo nos comunicamos</div>
+    <h1>Un solo canal, <span>respuesta directa</span>.</h1>
+    <p class="lede">Nada de hilos de email. Trabajamos por Slack, con WhatsApp como alternativa si os encaja mejor.</p>
+
+    <div class="body-grid comm-body">
+      <div class="ch primary">
+        <div class="badge">Recomendado</div>
+        <div class="ic">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Slack">
+            <path fill="#E01E5A" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z"/>
+            <path fill="#36C5F0" d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.527 2.527 0 0 1 8.834 0a2.527 2.527 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z"/>
+            <path fill="#2EB67D" d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z"/>
+            <path fill="#ECB22E" d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+          </svg>
+        </div>
+        <h3>Slack</h3>
+        <div class="sub">Os damos acceso al canal</div>
+        <ul>
+          <li>Canal dedicado Innatica × G4U con todo el equipo asignado</li>
+          <li>Hilos por tema, historial buscable, integraciones</li>
+          <li>Acceso vía web o app, sin obligación de instalar nada</li>
+        </ul>
+      </div>
+
+      <div class="ch">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp">
+            <path fill="#25D366" d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+          </svg>
+        </div>
+        <h3>WhatsApp Business</h3>
+        <div class="sub">Alternativa si Slack incomoda</div>
+        <ul>
+          <li>Grupo dedicado Innatica × G4U</li>
+          <li>Formato familiar para el día a día</li>
+          <li>Mismo equipo del otro lado, mismo tiempo de respuesta</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="email-note">
+      <div class="lbl">Nota</div>
+      <div class="txt"><strong>Email</strong> queda reservado para casos especiales: contratos, facturación o cuando hace falta dejar algo formal por escrito. Operativa del día a día, no.</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: Pilares del programa -->
+  <section class="slide" data-slide="5">
+    <div class="slide-head">
+      <div class="brand">Growth<span>4U</span></div>
+      <div class="slide-num"><b>05</b> / 07</div>
+    </div>
+
+    <div class="eyebrow">Qué contiene el programa</div>
+    <h1>Los <span>pilares</span> que instalaremos.</h1>
+    <p class="lede">No son fases con orden fijo. Son bloques independientes. Atacamos el que más mueva el negocio en cada momento.</p>
+
+    <div class="pillars-body">
+      <div class="pcard p-foundations" data-pillar="research">
+        <div class="open-hint">+</div>
+        <div class="layer">Foundations</div>
+        <h3>Research</h3>
+        <p>Entender mercado, competencia y propio negocio antes de decidir nada.</p>
+      </div>
+      <div class="pcard p-foundations" data-pillar="gtm">
+        <div class="open-hint">+</div>
+        <div class="layer">Foundations</div>
+        <h3>GTM Strategy</h3>
+        <p>El plan, el nicho, el mensaje y la promesa que vamos a defender.</p>
+        <div class="extra"><span class="pl">+</span> Métricas y dashboard iniciales</div>
+      </div>
+      <div class="pcard p-trust" data-pillar="trust">
+        <div class="open-hint">+</div>
+        <div class="layer">Trust</div>
+        <h3>Trust Fortress</h3>
+        <p>Controlar lo que el mercado encuentra al investigar la marca.</p>
+        <div class="extra"><span class="pl">+</span> Incluye sistema de reviews</div>
+      </div>
+      <div class="pcard p-demand" data-pillar="partners">
+        <div class="open-hint">+</div>
+        <div class="layer">Demand</div>
+        <h3>Partner & Creator Engine</h3>
+        <p>Demanda cualificada vía creadores e incentivos medibles.</p>
+      </div>
+      <div class="pcard p-b2b" data-pillar="outbound">
+        <div class="open-hint">+</div>
+        <div class="layer">B2B</div>
+        <h3>Outbound & Niche Conversations</h3>
+        <p>Abrir conversaciones donde ya existe intención.</p>
+      </div>
+      <div class="pcard p-conv" data-pillar="conversion">
+        <div class="open-hint">+</div>
+        <div class="layer">Owned funnel</div>
+        <h3>Conversión & Activación</h3>
+        <p>Que el tráfico aterrice y llegue al aha moment.</p>
+      </div>
+      <div class="pcard p-paid" data-pillar="paid">
+        <div class="open-hint">+</div>
+        <div class="layer">Amplification</div>
+        <h3>Paid Boost</h3>
+        <p>Amplificar solo lo que ya demostró señal.</p>
+      </div>
+      <div class="pcard p-operate" data-pillar="flywheel">
+        <div class="open-hint">+</div>
+        <div class="layer">Operating rhythm</div>
+        <h3>Flywheel & Optimización</h3>
+        <p>Convertir aprendizajes en decisiones semanales.</p>
+      </div>
+    </div>
+
+    <div class="order-note">
+      <div class="icn">→</div>
+      <div class="txt"><strong>Foundation primero.</strong> El resto se decide en cada revisión semanal según lo que pida el negocio.</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: Cómo ejecutamos -->
+  <section class="slide" data-slide="6">
+    <div class="slide-head">
+      <div class="brand">Growth<span>4U</span></div>
+      <div class="slide-num"><b>06</b> / 07</div>
+    </div>
+
+    <div class="eyebrow">Cómo ejecutamos</div>
+    <h1>Con nuestras herramientas, <span>operadas por vosotros</span>.</h1>
+    <p class="lede">El programa se entrega con dos palancas: Sancho por nuestro lado, Claude Code por el vuestro. Os pasamos skills operativas listas para ejecutar bajo nuestra guía.</p>
+
+    <div class="body-grid exec-body">
+      <div class="tool-card feature">
+        <div class="pill">Nuestro lado</div>
+        <h3>Sancho AI Marketing</h3>
+        <p class="desc">El stack AI-first interno de Growth4U. Métricas, documentos y agentes. Desde aquí diseñamos lo que vais a ejecutar y revisamos lo que sale.</p>
+        <ul>
+          <li>Centraliza todo: datos, decisiones, entregables</li>
+          <li>Los agentes preparan los SOPs y la guía para cada bloque</li>
+          <li>Acceso compartido cuando hace falta validar</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="pill">Vuestro lado</div>
+        <h3>Claude Code</h3>
+        <p class="desc">Lo que hoy hacemos nosotros, mañana lo ejecutáis vosotros con Claude Code. Os formamos para que tengáis la misma capacidad operativa, sin depender de la agencia para cada movimiento.</p>
+        <ul>
+          <li>Skills operativas listas: una por bloque, una por SOP</li>
+          <li>Ejecutáis bajo nuestra guía hasta que es automático</li>
+          <li>Curso de Claude Code de Alfonso incluido en el programa</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="skills-strip">
+      <div class="ki">⚡</div>
+      <div class="kt"><strong>Os entregamos el cómo, no solo el qué.</strong> Cada bloque del programa llega con sus skills ya empaquetadas para Claude Code. Vosotros ejecutáis, nosotros revisamos.</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: CLOSING -->
+  <section class="slide closing" data-slide="7">
+    <div class="slide-head">
+      <div class="brand">Growth<span>4U</span></div>
+      <div class="slide-num"><b>07</b> / 07</div>
+    </div>
+    <div class="closing-body">
+      <div class="closing-eyebrow">Empezamos</div>
+      <h1 class="closing-title">¡Lanzamos!<br><span>A crecer Innatica.</span></h1>
+      <p class="closing-sub">Formulario enviado, canal abierto, primer bloque elegido. Nos vemos en Slack.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button id="prev" aria-label="Anterior">‹</button>
+  <div class="dots">
+    <div class="dot is-active" data-go="1"></div>
+    <div class="dot" data-go="2"></div>
+    <div class="dot" data-go="3"></div>
+    <div class="dot" data-go="4"></div>
+    <div class="dot" data-go="5"></div>
+    <div class="dot" data-go="6"></div>
+    <div class="dot" data-go="7"></div>
+  </div>
+  <button id="next" aria-label="Siguiente">›</button>
+  <div class="counter"><b id="cur">1</b> / 7</div>
+</div>
+
+<!-- PILLAR MODAL -->
+<div class="modal-backdrop" id="pillarModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+    <div class="modal-layer" id="modalLayer"></div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="modal-section-label">Sistemas que incluye</div>
+    <ul class="modal-systems" id="modalSystems"></ul>
+    <div class="modal-foot">El detalle operativo (SOPs, templates, plantillas) lo vemos cuando arranquemos el bloque, no antes.</div>
+  </div>
+</div>
+
+<div class="hint">Use <kbd>←</kbd> <kbd>→</kbd> to navigate</div>
+
+<script>
+  // ----- Pillar data (sistemas, sin SOPs) -----
+  const pillars = {
+    research: {
+      layer: 'Foundations',
+      name: 'Research',
+      desc: 'Entender el mercado, la competencia y el propio negocio antes de decidir nada de adquisición.',
+      systems: [
+        ['1.1', 'Market Analysis: tamaño, dinámica, tendencias y regulación'],
+        ['1.2', 'Competitor Analysis: claims, ofertas y posicionamiento'],
+        ['1.3', 'Company Analysis: fortalezas reales, data, casos y credenciales'],
+        ['1.4', 'Customer Discovery: entrevistas, WTP, OPE Canvas y journey']
+      ]
+    },
+    gtm: {
+      layer: 'Foundations',
+      name: 'GTM Strategy',
+      desc: 'Diseñar el plan, el nicho, el mensaje y la promesa que vamos a defender en el mercado.',
+      systems: [
+        ['2.1', 'Plan Estratégico: roadmap de adquisición y objetivos por trimestre'],
+        ['2.2', 'Place to Win: ICP, nicho y priorización'],
+        ['2.3', 'Asset Selection: qué activos de confianza construir'],
+        ['2.4', 'Prove That You Are Legit: evidence library y señales'],
+        ['2.5', 'Positioning & Messaging por nicho'],
+        ['2.6', 'Métricas y dashboard iniciales']
+      ]
+    },
+    trust: {
+      layer: 'Trust layer',
+      name: 'Trust Fortress',
+      desc: 'Controlar lo que el mercado encuentra cuando investiga la marca antes de registrarse o comprar.',
+      systems: [
+        ['3.1', 'Reviews Sistemáticos: NPS, routing y loop semanal'],
+        ['3.2', 'SERP + SEO defensivo: reviews, vs, opiniones, is legit'],
+        ['3.3', 'Web Trust Stack: páginas, proof, widgets y compliance'],
+        ['3.4', 'Schema Markup: FAQ, Review, Organization'],
+        ['3.5', 'GEO / AEO: presencia en ChatGPT, Gemini y Perplexity'],
+        ['3.6', 'PR & Medios: media list, partner kit y deals híbridos'],
+        ['3.7', 'Ranking Articles: entrar en mejores X para Y']
+      ]
+    },
+    partners: {
+      layer: 'Demand layer',
+      name: 'Partner & Creator Engine',
+      desc: 'Generar demanda cualificada con creadores, partners e incentivos medibles hasta activación.',
+      systems: [
+        ['4.0', 'Tracking & Attribution: UTMs, deep links, partner_code y QA'],
+        ['4.1', 'Creator Longlist, outreach y negociación'],
+        ['4.2', 'Brief, compliance y producción de contenido'],
+        ['4.3', 'Whitelisting y reporting por creador'],
+        ['4.4', 'Activation Trigger e incentivos contra unit economics'],
+        ['4.5', 'Niche Testing y asignación de budget por nicho']
+      ]
+    },
+    outbound: {
+      layer: 'B2B / Comunidades',
+      name: 'Outbound & Niche Conversations',
+      desc: 'Abrir conversaciones en cuentas, comunidades y canales donde ya existe intención o dolor activo.',
+      systems: [
+        ['5.1', 'ICP, listas de cuentas, señales y priorización'],
+        ['5.2', 'Secuencia 7-10 toques, personalización y objeciones'],
+        ['5.3', 'Clasificación de replies, booking y prep'],
+        ['5.4', 'Niche Conversations: Reddit, foros, Discord y Telegram'],
+        ['5.5', 'Comment-to-DM y captura de demanda en social']
+      ]
+    },
+    conversion: {
+      layer: 'Owned funnel',
+      name: 'Conversión & Activación',
+      desc: 'Asegurar que el tráfico aterriza en una experiencia que convierte y lleva al usuario al aha moment.',
+      systems: [
+        ['6.1', 'Niche Landings: estructura, copy por nicho e instrumentación'],
+        ['6.2', 'Activation Trigger: datos, workshop, nudges y secuencias'],
+        ['6.3', 'Onboarding: fricciones, abandono y experimentos']
+      ]
+    },
+    paid: {
+      layer: 'Amplification',
+      name: 'Paid Boost',
+      desc: 'Amplificar los activos que ya demostraron señal, evitando gastar en mensajes o audiencias sin prueba.',
+      systems: [
+        ['7.1', 'Banco de ángulos, producción de creatividades y QA claims'],
+        ['7.2', 'Hipótesis, setup de campañas y lectura kill/scale/iterate'],
+        ['7.3', 'Retargeting por intención y secuencias de anuncios']
+      ]
+    },
+    flywheel: {
+      layer: 'Operating rhythm',
+      name: 'Flywheel & Optimización',
+      desc: 'Convertir los aprendizajes del sistema en decisiones semanales, contenido y mejora acumulativa.',
+      systems: [
+        ['8.1', 'Dashboard de Partners y ritual semanal'],
+        ['8.2', 'Burst vs Slow Burn y Build-in-Public Loop'],
+        ['8.3', 'Scorecards por canal, cohortes y payback']
+      ]
+    }
+  };
+
+  const modal = document.getElementById('pillarModal');
+  const modalLayer = document.getElementById('modalLayer');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalSystems = document.getElementById('modalSystems');
+  const modalClose = document.getElementById('modalClose');
+
+  function openPillar(id) {
+    const p = pillars[id];
+    if (!p) return;
+    modalLayer.textContent = p.layer;
+    modalTitle.textContent = p.name;
+    modalDesc.textContent = p.desc;
+    modalSystems.innerHTML = p.systems.map(([code, txt]) => `<li><code>${code}</code><span>${txt}</span></li>`).join('');
+    modal.classList.add('is-open');
+  }
+  function closeModal() { modal.classList.remove('is-open'); }
+
+  document.querySelectorAll('.pcard[data-pillar]').forEach(card => {
+    card.addEventListener('click', () => openPillar(card.dataset.pillar));
+  });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+</script>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const cur = document.getElementById('cur');
+  let idx = 0;
+
+  function show(i) {
+    idx = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, n) => {
+      s.classList.remove('is-active','is-prev');
+      if (n === idx) s.classList.add('is-active');
+      else if (n < idx) s.classList.add('is-prev');
+    });
+    dots.forEach((d, n) => d.classList.toggle('is-active', n === idx));
+    cur.textContent = idx + 1;
+    prev.disabled = idx === 0;
+    next.disabled = idx === slides.length - 1;
+  }
+
+  prev.addEventListener('click', () => show(idx - 1));
+  next.addEventListener('click', () => show(idx + 1));
+  dots.forEach((d, n) => d.addEventListener('click', () => show(n)));
+
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('pillarModal').classList.contains('is-open')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(idx + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+
+  show(0);
+</script>
+
+</body>
+</html>
